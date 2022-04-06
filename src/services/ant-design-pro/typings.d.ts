@@ -1,6 +1,3 @@
-// @ts-ignore
-/* eslint-disable */
-
 declare namespace API {
   type CurrentUser = {
     name?: string;
@@ -97,5 +94,17 @@ declare namespace API {
     datetime?: string;
     description?: string;
     type?: NoticeIconItemType;
+  };
+
+  type getFakeCaptchaParams = {
+    /** 手机号 */
+    phone?: string;
+  };
+
+  type ruleParams = {
+    /** 当前的页码 */
+    current?: number;
+    /** 页面的容量 */
+    pageSize?: number;
   };
 }
