@@ -19,10 +19,24 @@ export default [
     ],
   },
   {
-    name: 'TestCaseManagement',
+    name: 'TestCaseManagment',
     icon: 'smile',
     path: '/tescase',
-    component: './TestCase',
+    // component: './TestCase',
+    routes: [
+      {
+        path: 'testplan',
+        name: 'Testplan',
+
+        component: './TestCase/TestPlan',
+      },
+      {
+        name: 'PlanInfo',
+        path: 'testplan/:whichPlan',
+        component: './Testcase/TestPlanInfo',
+        hideInMenu: true,
+      },
+    ],
   },
   {
     component: './404',

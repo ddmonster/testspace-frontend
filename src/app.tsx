@@ -14,7 +14,7 @@ const loginPath = '/user/login';
 export const request: RequestConfig = {};
 /** 获取用户信息比较慢的时候会展示一个 loading */
 export const initialStateConfig = {
-  // loading: <PageLoading />,
+  loading: <PageLoading />,
 };
 
 /**
@@ -53,10 +53,11 @@ export async function getInitialState(): Promise<{
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
+    title: 'Testspace',
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
     waterMarkProps: {
-      content: initialState?.currentUser?.username,
+      // content: initialState?.currentUser?.username,
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
@@ -86,7 +87,6 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       // if (initialState?.loading) return <PageLoading />;
       return (
         <>
-          {<div>hi</div>}
           {children}
           {!props.location?.pathname?.includes('/login') && (
             <SettingDrawer

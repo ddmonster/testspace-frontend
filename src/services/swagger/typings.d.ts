@@ -48,13 +48,13 @@ declare namespace API {
     /** Name */
     name: string;
     /** Description */
-    description: string;
+    description?: string;
     /** Create By */
-    create_by: string;
+    create_by?: string;
     /** Enums */
     enums?: Record<string, any>;
-    /** Lables */
-    lables: string[];
+    /** Labels */
+    labels?: string[];
   };
 
   type TestPlanProps = {
@@ -74,8 +74,8 @@ declare namespace API {
     description: string;
     /** Enums */
     enums: Record<string, any>;
-    /** Lables */
-    lables: string[];
+    /** Labels */
+    labels: string[];
   };
 
   type TestPlanUpdate = {
@@ -87,8 +87,8 @@ declare namespace API {
     update_by?: string;
     /** Enums */
     enums?: Record<string, any>;
-    /** Lables */
-    lables?: string[];
+    /** Labels */
+    labels?: string[];
   };
 
   type TestSuitCreate = {
@@ -102,8 +102,8 @@ declare namespace API {
     create_by?: string;
     /** Testplans */
     testplans: string[];
-    /** Lables */
-    lables?: string[];
+    /** Labels */
+    labels?: string[];
   };
 
   type TestSuitProps = {
@@ -125,8 +125,8 @@ declare namespace API {
     enums: Record<string, any>;
     /** Testplans */
     testplans: string[];
-    /** Lables */
-    lables: string[];
+    /** Labels */
+    labels: string[];
   };
 
   type TestSuitUpdate = {
@@ -142,8 +142,8 @@ declare namespace API {
     enums?: Record<string, any>;
     /** Testplans */
     testplans?: string[];
-    /** Lables */
-    lables?: string[];
+    /** Labels */
+    labels?: string[];
   };
 
   type TestcaseCreate = {
@@ -163,8 +163,8 @@ declare namespace API {
     component?: string[];
     /** Suites */
     suites?: string[];
-    /** Lables */
-    lables?: string[];
+    /** Labels */
+    labels?: string[];
   };
 
   type TestcaseProps = {
@@ -190,8 +190,8 @@ declare namespace API {
     component: string[];
     /** Suites */
     suites: string[];
-    /** Lables */
-    lables: string[];
+    /** Labels */
+    labels: string[];
     /** Deleted */
     deleted: boolean;
   };
@@ -213,8 +213,8 @@ declare namespace API {
     component?: string[];
     /** Suites */
     suites?: string[];
-    /** Lables */
-    lables?: string[];
+    /** Labels */
+    labels?: string[];
     /** Deleted */
     deleted?: boolean;
   };

@@ -1,5 +1,5 @@
 import { Form, FormInstance, Modal } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 type PlanModalProps = {
   title?: React.ReactNode;
   children?: React.ReactNode;
@@ -30,7 +30,6 @@ const useFormModal = () => {
 };
 const FormModal = (props: PlanModalProps) => {
   const [formRef] = Form.useForm();
-
   return (
     <Modal
       title={props.title}
@@ -38,6 +37,9 @@ const FormModal = (props: PlanModalProps) => {
       keyboard={true}
       closable={true}
       destroyOnClose={true}
+      afterClose={() => {
+        formRef.resetFields();
+      }}
       onOk={() => {
         formRef.submit();
         if (props.formModal?.onFinish) {
