@@ -21,18 +21,19 @@ export default [
   {
     name: 'TestCaseManagment',
     icon: 'smile',
-    path: '/tescase',
+    path: '/testcase',
     // component: './TestCase',
     routes: [
       {
         path: 'testplan',
         name: 'Testplan',
-
+        exact: true,
         component: './TestCase/TestPlan',
       },
       {
         name: 'PlanInfo',
-        path: 'testplan/:whichPlan',
+        path: 'testplan/:uuid',
+        exact: true,
         component: './Testcase/TestPlanInfo',
         hideInMenu: true,
       },

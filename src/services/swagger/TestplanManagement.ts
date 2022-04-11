@@ -57,7 +57,9 @@ export async function getTestplanApiTestplan_uuid_get(
   const { uuid: param0, ...queryParams } = params;
   return request<API.TestPlanProps>(`/api/testplan/${param0}`, {
     method: 'GET',
-    params: { ...queryParams },
+    params: {
+      ...queryParams,
+    },
     ...(options || {}),
   });
 }

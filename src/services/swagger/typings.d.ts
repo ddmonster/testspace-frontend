@@ -76,6 +76,8 @@ declare namespace API {
     enums: Record<string, any>;
     /** Labels */
     labels: string[];
+    /** Testsuits */
+    testsuits?: TestSuitProps[];
   };
 
   type TestPlanUpdate = {
@@ -229,6 +231,14 @@ declare namespace API {
   type UserProps = {
     /** Uuid */
     uuid: string;
+    /** Created At */
+    created_at: string;
+    /** Updated At */
+    updated_at: string;
+    /** Update By */
+    update_by?: string;
+    /** Create By */
+    create_by?: string;
     /** Username */
     username: string;
     /** Accountname */
@@ -241,10 +251,6 @@ declare namespace API {
     admin: boolean;
     /** Avatar */
     avatar: string;
-    /** Created At */
-    created_at: string;
-    /** Updated At */
-    updated_at: string;
   };
 
   type ValidationError = {
@@ -288,6 +294,7 @@ declare namespace API {
 
   type getTestplanApiTestplan_uuid_getParams = {
     uuid: string;
+    details?: boolean;
   };
 
   type deleteTestplanApiTestplan_uuid_deleteParams = {

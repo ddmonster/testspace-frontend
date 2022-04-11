@@ -20,6 +20,7 @@ import {
   Tooltip,
   Tabs,
   Spin,
+  Image,
 } from 'antd';
 import { useRequest } from 'ahooks';
 import {
@@ -33,6 +34,7 @@ import TextArea from 'antd/lib/input/TextArea';
 
 import { FormModal, useFormModal } from '@/components/InputComponent/FormModal';
 import { PageContainer } from '@ant-design/pro-layout';
+import { history } from 'umi';
 
 type PlanCardProps = {
   children?: React.ReactNode;
@@ -43,18 +45,30 @@ type PlanCardProps = {
   uuid?: string;
 };
 const PlanCard = (props: PlanCardProps) => {
+  const [clickIcon, setClickIcon] = useState(false);
   return (
     <Tooltip title={props.tooltip} overlayStyle={{ whiteSpace: 'break-spaces' }}>
       <Card
         extra={props.extra}
         bordered={true}
         hoverable={true}
-        title={props.title}
-        loading={props.loading}
-        onClick={(e) => {
-          console.log(e);
-          message.info(props.uuid + ' Clicked ' + props.title + e);
+        title={
+          <span
+            onClick={(e) => {
+              history.push(`/testcase/testplan/${props.uuid}`);
+            }}
+          >
+            {props.title}
+            {clickIcon && <img src="/icons//icons8-double-tap-gesture-30.png" />}
+          </span>
+        }
+        onMouseEnter={(e) => {
+          setClickIcon(true);
         }}
+        onMouseLeave={(e) => {
+          setClickIcon(false);
+        }}
+        loading={props.loading}
       >
         {props.children}
       </Card>
@@ -128,9 +142,10 @@ export default () => {
                 { xs: 8, sm: 16, md: 24, lg: 32 },
                 { xs: 8, sm: 16, md: 24, lg: 32 },
               ]}
+              wrap={true}
             >
               {planArray?.map((plan) => (
-                <Col key={plan.uuid} className="gutter-row" span={6}>
+                <Col key={plan.uuid} className="gutter-row" lg={{ span: 6 }} xs={{ span: 24 }}>
                   <PlanCard
                     tooltip={plan.description}
                     title={plan.name}
