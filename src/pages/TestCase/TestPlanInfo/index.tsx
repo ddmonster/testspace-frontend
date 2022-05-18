@@ -11,6 +11,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import {
   Breadcrumb,
   Button,
+  Col,
   Comment,
   Form,
   List,
@@ -43,27 +44,8 @@ import {
   updateTestsuitApiTestsuit_uuid_patch,
 } from '@/services/swagger/testsuitManagement';
 import moment from 'moment';
-
-const TagList: React.FC<{
-  value?: string[];
-  onChange?: (value: string[]) => void;
-}> = ({ value, onChange }) => {
-  return (
-    <>
-      <Select
-        // autoClearSearchValue={false}
-        mode="tags"
-        // labelInValue={true}
-        style={{ width: '20rem' }}
-        value={value}
-        onChange={(tags) => {
-          onChange?.(tags);
-        }}
-      />
-    </>
-  );
-};
-
+import { TagsMap } from '@/components/InputComponent/tagsRender';
+import { history } from 'umi';
 const TestSuitEdit: React.FC<{
   uuid_plan?: string;
   button_name: string;
@@ -122,10 +104,11 @@ export default (props) => {
   const values = useContext(ProProvider);
   const actionRef = useRef();
   // console.log(props.route);
-  const { uuid } = props.match.params;
+  const { planname, planuuid } = props.match.params;
+  console.log(props.match);
   const { data, loading, refresh } = useRequest(
     () => {
-      return getTestplanApiTestplan_uuid_get({ uuid: uuid, details: true });
+      return getTestplanApiTestplan_uuid_get({ uuid: planuuid, details: true });
     },
     {
       formatResult: (response: any) => {
@@ -140,11 +123,11 @@ export default (props) => {
       title={
         !loading ? (
           <EditableText
-            value={data?.name || ''}
+            value={planname || ''}
             onSave={(value) => {
-              updateTestplanApiTestplan_uuid_patch({ uuid: uuid }, { name: value }).then(() => {
+              updateTestplanApiTestplan_uuid_patch({ uuid: planuuid }, { name: value }).then(() => {
                 refresh();
-                message.info(`change name ${data.name} to ${value}`);
+                message.info(`change name ${planname} to ${value}`);
               });
             }}
           />
@@ -157,28 +140,7 @@ export default (props) => {
         value={{
           ...values,
           valueTypeMap: {
-            tags: {
-              render: (labels) => {
-                return (
-                  <>
-                    <Row
-                      gutter={[
-                        { xs: 1, sm: 2, md: 3, lg: 4 },
-                        { xs: 1, sm: 2, md: 3, lg: 4 },
-                      ]}
-                      style={{ width: '20rem' }}
-                    >
-                      {labels.map((label: string) => (
-                        <Tag key={label}>{label}</Tag>
-                      ))}
-                    </Row>
-                  </>
-                );
-              },
-              renderFormItem: (labels, _props) => (
-                <TagList value={labels} {..._props} {..._props?.fieldProps} />
-              ),
-            },
+            ...TagsMap,
           },
         }}
       >
@@ -192,7 +154,7 @@ export default (props) => {
             formProps: {},
             onSave: (key, record) => {
               // debugger;
-              return updateTestplanApiTestplan_uuid_patch({ uuid: uuid }, { ...record }).then(
+              return updateTestplanApiTestplan_uuid_patch({ uuid: planuuid }, { ...record }).then(
                 (resp) => {
                   refresh();
                   return resp;
@@ -226,7 +188,8 @@ export default (props) => {
               dataIndex: 'description',
               valueType: 'textarea',
               span: 2,
-              contentStyle: { whiteSpace: 'pre-wrap', border: '1' },
+              
+              contentStyle: { whiteSpace: 'pre-wrap' },
               formItemProps: {
                 rules: [{ required: true, message: 'should not be empty' }],
               },
@@ -242,17 +205,16 @@ export default (props) => {
                 key="add"
                 filedProps={{ title: 'Add TestSuit' }}
                 refresh={refresh}
-                uuid_plan={uuid}
+                uuid_plan={planuuid}
               />,
             ];
           }}
-          onRow={(record: any) => {
+          onItem={(record: API.TestSuitProps) => {
             return {
-              onMouseEnter: () => {
-                console.log(record);
-              },
-              onClick: () => {
-                console.log(record);
+              onClick: (e) => {
+                history.push(
+                  `/testcase/testplan/${planname}/${planuuid}/testsuite/${record.name}/${record.uuid}`,
+                );
               },
             };
           }}
