@@ -55,7 +55,7 @@ const PlanCard = (props: PlanCardProps) => {
         title={
           <span
             onClick={(e) => {
-              history.push(`/testcase/testplan/${props.uuid}`);
+              history.push(`/testcase/testplan/${props.title}/${props.uuid}`);
             }}
           >
             {props.title}

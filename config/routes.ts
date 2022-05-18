@@ -31,8 +31,16 @@ export default [
         component: './TestCase/TestPlan',
       },
       {
-        name: 'PlanInfo',
-        path: 'testplan/:uuid',
+        name: 'Testsuite',
+        icon: 'smile',
+        path: 'testplan/:planname/:planuuid/testsuite/:suitname/:suituuid',
+        component: './TestCase/Testsuite',
+        exact: true,
+        hideInMenu: true,
+      },
+      {
+        name: 'TestplanDetails',
+        path: 'testplan/:planname/:planuuid',
         exact: true,
         component: './Testcase/TestPlanInfo',
         hideInMenu: true,
